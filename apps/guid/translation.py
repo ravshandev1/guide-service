@@ -1,6 +1,6 @@
 from modeltranslation.translator import register, TranslationOptions
 from modeltranslation.admin import TranslationAdmin
-from .models import City, Language
+from .models import City, Guid
 
 
 class CustomTranslationsAdmin(TranslationAdmin):
@@ -17,9 +17,9 @@ class CustomTranslationsAdmin(TranslationAdmin):
 
 @register(City)
 class CityTranslation(TranslationOptions):
-    fields = ('name', 'description')
+    fields = ['name', 'description']
 
 
-@register(Language)
+@register(Guid)
 class LanguageTranslation(TranslationOptions):
-    fields = ('name',)
+    fields = ['name', 'bio']

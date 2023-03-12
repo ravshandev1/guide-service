@@ -3,6 +3,7 @@ from django.conf import settings
 
 
 class Language(models.Model):
+    contraction = models.CharField(max_length=2)
     name = models.CharField(max_length=255)
 
     def __str__(self):
@@ -27,7 +28,8 @@ class Guid(models.Model):
     image = models.ImageField(upload_to='guids')
     bio = models.TextField()
     rating = models.FloatField(null=True, blank=True)
-    language = models.CharField(max_length=255)
+    language = models.ManyToManyField(Language)
+    city = models.ManyToManyField(City)
 
     @property
     def get_rating(self):
@@ -49,12 +51,20 @@ class Guid(models.Model):
 
 class WorkOfGuid(models.Model):
     guid = models.ForeignKey(Guid, models.CASCADE, related_name='works')
-    image = models.ImageField(upload_to='guid_works')
+    image = models.ImageField(upload_to='guid_works', null=True, blank=True)
     video = models.FileField(null=True, blank=True)
 
     @property
     def get_image(self):
-        return f"{settings.SITE_URL}{self.image.url}"
+        if self.image:
+            return f"{settings.SITE_URL}{self.image.url}"
+        return None
+
+    @property
+    def get_video(self):
+        if self.video:
+            return f"{settings.SITE_URL}{self.video.url}"
+        return None
 
     def __str__(self):
         return self.guid.name
@@ -85,4 +95,3 @@ class Booking(models.Model):
     contact_link = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     is_read = models.BooleanField(default=False)
-

@@ -3,11 +3,22 @@ import requests
 from .models import Guid, Language, City, Booking
 from .serializers import CitySerializer, LanguageSerializer, GuidSerializer, GuidDetailSerializer, BookingSerializer
 from django.conf import settings
+from datetime import datetime
+import pytz
 
 
 class CityAPI(generics.ListAPIView):
     queryset = City.objects.all()
     serializer_class = CitySerializer
+
+    def get(self, request, *args, **kwargs):
+        qs = self.get_queryset()
+        serializer = self.get_serializer(qs, many=True)
+        data = serializer.data
+        lan = self.request.query_params.get('lan')
+        if lan:
+            data['descriptions'] = f"{[i.text for i in obj]}"
+        return response.Response(data)
 
 
 class GuidAPI(generics.ListAPIView):
@@ -24,6 +35,19 @@ class GuidRetrieveAPI(generics.RetrieveAPIView):
     queryset = Guid.objects.all()
     serializer_class = GuidDetailSerializer
 
+    def get(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        data = serializer.data
+        obj = Guid.objects.filter(id=self.kwargs['pk']).first()
+        date = datetime.now(pytz.timezone(settings.TIME_ZONE))
+        bookings = Booking.objects.filter(guid=obj, check_in_time__gt=date).all()
+        lst = list()
+        for i in bookings:
+            lst.append(i.check_in_time.__format__('%Y-%m-%d'))
+        data['days'] = lst
+        return response.Response(data)
+
 
 class BookingAPI(generics.GenericAPIView):
     queryset = Booking.objects.all()
@@ -37,11 +61,12 @@ class BookingAPI(generics.GenericAPIView):
         time_in = serializer.data['check_in_time'][11:16]
         day_out = serializer.data['check_out_time'][:10]
         time_out = serializer.data['check_out_time'][11:16]
-        cre = serializer.data['check_out_time'][:10]
-        cre_t = serializer.data['check_out_time'][11:16]
-        text = (f"Guid - {serializer.data['guid']}",
+        cre = serializer.data['created_at'][:10]
+        cre_t = serializer.data['created_at'][11:16]
+        text = (f"Guid - {serializer.data['guid_name']}",
                 f"Name - {serializer.data['name']}",
                 f"email - {serializer.data['email']}",
+                f"City - {serializer.data['city_name']}",
                 f"Check in time - {day_in + ' ' + time_in}",
                 f"Check out time - {day_out + ' ' + time_out}",
                 f"Contact - {serializer.data['contact_link']}",

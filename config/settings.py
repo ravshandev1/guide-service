@@ -30,12 +30,12 @@ ADMIN = ENV.get('ADMIN')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (ENV.get('DEBUG') == '1')
-
+CORS_ALLOW_ALL_ORIGINS = True
 ALLOWED_HOSTS = ['*']
 if DEBUG:
-    SITE_URL = 'http://192.168.68.130:8000'
+    SITE_URL = 'http://10.3.0.236:8000'
 else:
-    SITE_URL = 'https://turiya.uz'
+    SITE_URL = 'http://ravshandev.uz'
 
 # Application definition
 
@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     # build apps
     'rest_framework',
     'drf_yasg',
+    'corsheaders',
 
     # local apps
     'contact',
@@ -62,6 +63,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -123,18 +125,29 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
+
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
 LANGUAGES = (
     ('ru', 'Russian'),
-    ('en', 'English')
+    ('en', 'English'),
+    ('fr', 'French'),
+    ('ja', 'Japanese'),
+    ('ar', 'Arabic'),
+    ('zh-cn', 'Simplified Chinese'),
+    ('de', 'German'),
+    ('pt', 'Portuguese'),
+    ('es', 'Spanish'),
+    ('tr', 'Turkish'),
+    ('it', 'Italian'),
+    ('hi', 'Hindi'),
 )
 DEFAULT_LANGUAGE = 1
 LANGUAGE_CODE = 'en-us'
 
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
-MODELTRANSLATION_LANGUAGES = ('ru', 'en')
+MODELTRANSLATION_LANGUAGES = ('ru', 'en', 'fr', 'ja', 'ar', 'zh-cn', 'de', 'pt', 'es', 'tr', 'it', 'hi')
 
 TIME_ZONE = 'Asia/Tashkent'
 
