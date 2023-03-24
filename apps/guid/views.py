@@ -1,7 +1,8 @@
 from rest_framework import generics, response
 import requests
 from .models import Guid, Language, City, Booking
-from .serializers import CitySerializer, LanguageSerializer, GuidSerializer, GuidDetailSerializer, BookingSerializer
+from .serializers import CityListSerializer, LanguageSerializer, GuidSerializer, GuidDetailSerializer, \
+    BookingSerializer, CityDetailSerializer
 from django.conf import settings
 from datetime import datetime
 import pytz
@@ -9,16 +10,12 @@ import pytz
 
 class CityAPI(generics.ListAPIView):
     queryset = City.objects.all()
-    serializer_class = CitySerializer
+    serializer_class = CityListSerializer
 
-    def get(self, request, *args, **kwargs):
-        qs = self.get_queryset()
-        serializer = self.get_serializer(qs, many=True)
-        data = serializer.data
-        lan = self.request.query_params.get('lan')
-        if lan:
-            data['descriptions'] = f"{[i.text for i in obj]}"
-        return response.Response(data)
+
+class CityDetailAPI(generics.RetrieveAPIView):
+    queryset = City.objects.all()
+    serializer_class = CityDetailSerializer
 
 
 class GuidAPI(generics.ListAPIView):

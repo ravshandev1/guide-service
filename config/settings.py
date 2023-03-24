@@ -33,7 +33,7 @@ DEBUG = (ENV.get('DEBUG') == '1')
 CORS_ALLOW_ALL_ORIGINS = True
 ALLOWED_HOSTS = ['*']
 if DEBUG:
-    SITE_URL = 'http://10.3.0.236:8000'
+    SITE_URL = 'http://0.0.0.0:8000'
 else:
     SITE_URL = 'http://ravshandev.uz'
 
@@ -143,8 +143,8 @@ LANGUAGES = (
     ('it', 'Italian'),
     ('hi', 'Hindi'),
 )
-DEFAULT_LANGUAGE = 1
-LANGUAGE_CODE = 'en-us'
+DEFAULT_LANGUAGE = 0
+LANGUAGE_CODE = 'ru'
 
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
 MODELTRANSLATION_LANGUAGES = ('ru', 'en', 'fr', 'ja', 'ar', 'zh-cn', 'de', 'pt', 'es', 'tr', 'it', 'hi')

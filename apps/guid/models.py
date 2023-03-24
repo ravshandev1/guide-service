@@ -5,13 +5,18 @@ from django.conf import settings
 class Language(models.Model):
     contraction = models.CharField(max_length=2)
     name = models.CharField(max_length=255)
+    image = models.ImageField(upload_to='languages')
 
     def __str__(self):
         return self.name
 
+    @property
+    def get_image(self):
+        return f"{settings.SITE_URL}{self.image.url}"
+
 
 class City(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=355)
     image = models.ImageField(upload_to='cities')
     description = models.TextField()
 
@@ -28,8 +33,8 @@ class Guid(models.Model):
     image = models.ImageField(upload_to='guids')
     bio = models.TextField()
     rating = models.FloatField(null=True, blank=True)
-    language = models.ManyToManyField(Language)
-    city = models.ManyToManyField(City)
+    language = models.ManyToManyField(Language, related_name='guids')
+    city = models.ManyToManyField(City, related_name='guids')
 
     @property
     def get_rating(self):

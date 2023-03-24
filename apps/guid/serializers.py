@@ -5,13 +5,27 @@ from .models import Language, City, Rate, WorkOfGuid, Guid, Booking
 class LanguageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Language
-        fields = ['contraction', 'name']
+        fields = ['contraction', 'name', 'get_image']
 
 
-class CitySerializer(serializers.ModelSerializer):
+class CityListSerializer(serializers.ModelSerializer):
     class Meta:
         model = City
-        fields = ['name', 'get_image', 'description']
+        fields = ['name', 'get_image']
+
+
+class GuidSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Guid
+        fields = ['name', 'get_rating']
+
+
+class CityDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = City
+        fields = ['name', 'get_image', 'description', 'guids']
+
+    guids = GuidSerializer(many=True, read_only=True)
 
 
 class RateSerializer(serializers.ModelSerializer):
@@ -32,12 +46,7 @@ class GuidDetailSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'get_image', 'bio', 'get_rating', 'language', 'works']
 
     works = WorkOfGuidSerializer(many=True, read_only=True)
-
-
-class GuidSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Guid
-        fields = ['name', 'get_rating']
+    language = LanguageSerializer(many=True, read_only=True)
 
 
 class BookingSerializer(serializers.ModelSerializer):
