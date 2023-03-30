@@ -32,7 +32,7 @@ ADMIN = ENV.get('ADMIN')
 DEBUG = (ENV.get('DEBUG') == '1')
 CORS_ALLOW_ALL_ORIGINS = True
 ALLOWED_HOSTS = ['*']
-SITE_URL = ENV.get('DEBUG')
+SITE_URL = ENV.get('SITE_URL')
 
 # Application definition
 
