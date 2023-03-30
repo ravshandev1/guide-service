@@ -1,4 +1,4 @@
-from rest_framework import generics, response
+from rest_framework import generics, response, permissions
 import requests
 from .models import Guid, Language, City, Booking
 from .serializers import CityListSerializer, LanguageSerializer, GuidSerializer, GuidDetailSerializer, \
@@ -38,7 +38,7 @@ class GuidRetrieveAPI(generics.RetrieveAPIView):
         data = serializer.data
         obj = Guid.objects.filter(id=self.kwargs['pk']).first()
         date = datetime.now(pytz.timezone(settings.TIME_ZONE))
-        bookings = Booking.objects.filter(guid=obj, check_in_time__gt=date).all()
+        bookings = Booking.objects.filter(guid=obj, check_in_time__gt=date, is_checked=True).all()
         lst = list()
         for i in bookings:
             lst.append(i.check_in_time.__format__('%Y-%m-%d'))

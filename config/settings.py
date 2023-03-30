@@ -32,10 +32,7 @@ ADMIN = ENV.get('ADMIN')
 DEBUG = (ENV.get('DEBUG') == '1')
 CORS_ALLOW_ALL_ORIGINS = True
 ALLOWED_HOSTS = ['*']
-if DEBUG:
-    SITE_URL = 'http://0.0.0.0:8000'
-else:
-    SITE_URL = 'http://ravshandev.uz'
+SITE_URL = ENV.get('DEBUG')
 
 # Application definition
 
