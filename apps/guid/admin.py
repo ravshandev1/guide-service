@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import City, Language, Guid, WorkOfGuid, Booking
-from .translation import CustomTranslationsAdmin
+from .models import City, Language, Guid, WorkOfGuid, Booking, CityImage
+from .translation import CustomTranslationsAdmin, InlineTranslationsAdmin
 
 
 @admin.register(Booking)
@@ -10,9 +10,15 @@ class CityAdmin(admin.ModelAdmin):
     search_fields = ['name', 'guid']
 
 
+class ImageInline(admin.TabularInline):
+    model = CityImage
+    extra = 0
+
+
 @admin.register(City)
 class CityAdmin(CustomTranslationsAdmin):
     list_display = ['name']
+    inlines = [ImageInline]
 
 
 @admin.register(Language)

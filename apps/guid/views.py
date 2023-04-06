@@ -1,4 +1,4 @@
-from rest_framework import generics, response, permissions
+from rest_framework import generics, response
 import requests
 from .models import Guid, Language, City, Booking
 from .serializers import CityListSerializer, LanguageSerializer, GuidSerializer, GuidDetailSerializer, \

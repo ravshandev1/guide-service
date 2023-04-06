@@ -17,11 +17,15 @@ class Language(models.Model):
 
 class City(models.Model):
     name = models.CharField(max_length=355)
-    image = models.ImageField(upload_to='cities')
     description = models.TextField()
 
     def __str__(self):
         return self.name
+
+
+class CityImage(models.Model):
+    city = models.ForeignKey(City, models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='cities')
 
     @property
     def get_image(self):

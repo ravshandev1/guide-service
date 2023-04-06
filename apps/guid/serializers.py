@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Language, City, Rate, WorkOfGuid, Guid, Booking
+from .models import Language, City, Rate, WorkOfGuid, Guid, Booking, CityImage
 
 
 class LanguageSerializer(serializers.ModelSerializer):
@@ -11,21 +11,36 @@ class LanguageSerializer(serializers.ModelSerializer):
 class CityListSerializer(serializers.ModelSerializer):
     class Meta:
         model = City
-        fields = ['name', 'get_image']
+        fields = ['id', 'name', 'image']
+
+    image = serializers.SerializerMethodField()
+
+    @staticmethod
+    def get_image(obj):
+        if obj.imgaes:
+            return obj.imgaes.first().get_image
+        return None
 
 
 class GuidSerializer(serializers.ModelSerializer):
     class Meta:
         model = Guid
-        fields = ['name', 'get_rating']
+        fields = ['id', 'name', 'get_image', 'get_rating']
+
+
+class ImagesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CityImage
+        fields = ['get_image']
 
 
 class CityDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = City
-        fields = ['name', 'get_image', 'description', 'guids']
+        fields = ['name', 'images', 'description', 'guids']
 
-    guids = GuidSerializer(many=True, read_only=True)
+    guids = GuidSerializer(many=True)
+    images = ImagesSerializer(many=True)
 
 
 class RateSerializer(serializers.ModelSerializer):
