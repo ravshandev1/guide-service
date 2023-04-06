@@ -11,14 +11,14 @@ class LanguageSerializer(serializers.ModelSerializer):
 class CityListSerializer(serializers.ModelSerializer):
     class Meta:
         model = City
-        fields = ['id', 'name', 'image']
+        fields = ['id', 'name', 'images']
 
-    image = serializers.SerializerMethodField()
+    images = serializers.SerializerMethodField()
 
     @staticmethod
-    def get_image(obj):
-        if obj.imgaes:
-            return obj.imgaes.first().get_image
+    def get_images(obj):
+        if obj.images:
+            return obj.images.first().get_image
         return None
 
 

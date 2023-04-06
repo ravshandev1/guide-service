@@ -1,11 +1,16 @@
 from rest_framework import generics, response
 import requests
-from .models import Guid, Language, City, Booking
+from .models import Guid, Language, City, Booking, Rate
 from .serializers import CityListSerializer, LanguageSerializer, GuidSerializer, GuidDetailSerializer, \
-    BookingSerializer, CityDetailSerializer
+    BookingSerializer, CityDetailSerializer, RateSerializer
 from django.conf import settings
 from datetime import datetime
 import pytz
+
+
+class RateAPI(generics.CreateAPIView):
+    queryset = Rate.objects.all()
+    serializer_class = RateSerializer
 
 
 class CityAPI(generics.ListAPIView):

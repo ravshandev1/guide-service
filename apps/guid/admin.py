@@ -37,4 +37,4 @@ class GuidAdmin(CustomTranslationsAdmin):
     inlines = [WorkOfGuidInline]
     list_filter = ['language']
     filter_horizontal = ['language', 'city']
-    exclude = ['rating']
+    # exclude = ['rating']
