@@ -34,6 +34,7 @@ class WorkOfGuidInline(admin.TabularInline):
 @admin.register(Guid)
 class GuidAdmin(CustomTranslationsAdmin):
     list_display = ['id', 'name', 'rating']
+    list_display_links = ('name',)
     inlines = [WorkOfGuidInline]
     list_filter = ['language']
     filter_horizontal = ['language', 'city']

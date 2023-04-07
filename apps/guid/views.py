@@ -46,7 +46,7 @@ class GuidRetrieveAPI(generics.RetrieveAPIView):
         bookings = Booking.objects.filter(guid=obj, check_in_time__gt=date, is_checked=True).all()
         lst = list()
         for i in bookings:
-            lst.append(i.check_in_time.__format__('%Y-%m-%d'))
+            lst.append({"from": i.check_in_time.__format__('%Y-%m-%d'), "to": i.check_out_time.__format__('%Y-%m-%d')})
         data['days'] = lst
         return response.Response(data)
 
