@@ -5,7 +5,7 @@ from .models import Language, City, Rate, WorkOfGuid, Guid, Booking, CityImage
 class LanguageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Language
-        fields = ['contraction', 'name', 'get_image']
+        fields = ['id', 'contraction', 'name', 'get_image']
 
 
 class CityListSerializer(serializers.ModelSerializer):
