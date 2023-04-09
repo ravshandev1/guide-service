@@ -3,7 +3,7 @@ from django.conf import settings
 
 
 class Language(models.Model):
-    contraction = models.CharField(max_length=2)
+    contraction = models.CharField(max_length=5)
     name = models.CharField(max_length=255)
     image = models.ImageField(upload_to='languages')
 
@@ -98,7 +98,7 @@ class Booking(models.Model):
     guid = models.ForeignKey(Guid, models.CASCADE, related_name='booking')
     name = models.CharField(max_length=255)
     email = models.EmailField(null=True)
-    city = models.ForeignKey(City, models.SET('City deleted'), related_name='booking')
+    city = models.ForeignKey(City, models.CASCADE, related_name='booking')
     check_in_time = models.DateTimeField()
     check_out_time = models.DateTimeField()
     contact_link = models.CharField(max_length=255)
