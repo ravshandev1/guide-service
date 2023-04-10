@@ -37,8 +37,8 @@ SITE_URL = ENV.get('SITE_URL')
 # Application definition
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_REPLACE_HTTPS_REFERER = True
-CSRF_TRUSTED_ORIGINS = [
-    'https://guid-eosin.vercel.app/',
+CORS_ALLOWED_ORIGINS = [
+    "https://guid-eosin.vercel.app/"
 ]
 CORS_ALLOW_HEADERS = ["accept", "referer", "accept-encoding", "authorization", "content-type", "dnt", "origin",
                       "user-agent", "x-csrftoken", "x-sessionid", "x-requested-with"]
