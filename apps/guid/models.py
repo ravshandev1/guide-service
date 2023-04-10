@@ -45,7 +45,7 @@ class Guid(models.Model):
         count = self.rate.count()
         summa = sum([i.rate for i in self.rate.all()])
         if count == 0:
-            count = 1
+            return self.rating
         self.rating = summa / count
         self.save()
         return self.rating
