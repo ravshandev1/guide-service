@@ -30,12 +30,19 @@ ADMIN = ENV.get('ADMIN')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (ENV.get('DEBUG') == '1')
-CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOW_ALL_ORIGINS = True
 ALLOWED_HOSTS = ['*']
 SITE_URL = ENV.get('SITE_URL')
 
 # Application definition
-
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_REPLACE_HTTPS_REFERER = True
+CSRF_TRUSTED_ORIGINS = [
+    'https://guid-eosin.vercel.app/',
+]
+CORS_ALLOW_HEADERS = ["accept", "referer", "accept-encoding", "authorization", "content-type", "dnt", "origin",
+                      "user-agent", "x-csrftoken", "x-sessionid", "x-requested-with"]
+CORS_EXPOSE_HEADERS = ['Set-Cookie']
 INSTALLED_APPS = [
     'jazzmin',
     'django.contrib.auth',
