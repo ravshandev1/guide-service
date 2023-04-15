@@ -67,9 +67,10 @@ class GuidDetailSerializer(serializers.ModelSerializer):
 class BookingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Booking
-        fields = ['guid', 'city_name', 'guid_name', 'name', 'email', 'city', 'check_in_time', 'check_out_time',
-                  'contact_link', 'created_at']
+        fields = ['guid', 'city_name', 'guid_name', 'language', 'name', 'email', 'city', 'check_in_time',
+                  'check_out_time', 'contact_link', 'language_name',  'created_at']
 
     created_at = serializers.DateTimeField(read_only=True)
     city_name = serializers.CharField(read_only=True, source='city.name')
     guid_name = serializers.CharField(read_only=True, source='guid.name')
+    language_name = serializers.CharField(read_only=True, source='language.name')

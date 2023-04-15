@@ -19,7 +19,8 @@ class ContactAPi(generics.CreateAPIView):
         time_out = serializer.data['check_out_time'][11:16]
         cre = serializer.data['created_at'][:10]
         cre_t = serializer.data['created_at'][11:16]
-        text = (f"City - {serializer.data['city_name']}",
+        text = (f"Contact",
+                f"City - {serializer.data['city_name']}",
                 f"Name - {serializer.data['name']}",
                 f"email - {serializer.data['email']}",
                 f"language - {serializer.data['language_name']}",

@@ -4,7 +4,7 @@ from .models import Guid, Language, City, Booking, Rate
 from .serializers import CityListSerializer, LanguageSerializer, GuidSerializer, GuidDetailSerializer, \
     BookingSerializer, CityDetailSerializer, RateSerializer
 from django.conf import settings
-from datetime import datetime
+from datetime import datetime, timedelta
 import pytz
 
 
@@ -45,8 +45,12 @@ class GuidRetrieveAPI(generics.RetrieveAPIView):
         date = datetime.now(pytz.timezone(settings.TIME_ZONE))
         bookings = Booking.objects.filter(guid=obj, check_in_time__gt=date, is_checked=True).all()
         lst = list()
-        for i in bookings:
-            lst.append({"from": i.check_in_time.__format__('%Y-%m-%d'), "to": i.check_out_time.__format__('%Y-%m-%d')})
+        mn_in = min([i.check_in_time for i in bookings])
+        mn_ou = max([i.check_out_time for i in bookings])
+        j = mn_in
+        while j <= mn_ou:
+            lst.append(j.__format__('%Y-%m-%d'))
+            j = j + timedelta(days=1)
         data['days'] = lst
         return response.Response(data)
 
@@ -65,10 +69,12 @@ class BookingAPI(generics.GenericAPIView):
         time_out = serializer.data['check_out_time'][11:16]
         cre = serializer.data['created_at'][:10]
         cre_t = serializer.data['created_at'][11:16]
-        text = (f"Guid - {serializer.data['guid_name']}",
+        text = (f"Booking",
+                f"Guid - {serializer.data['guid_name']}",
                 f"Name - {serializer.data['name']}",
                 f"email - {serializer.data['email']}",
                 f"City - {serializer.data['city_name']}",
+                f"Language - {serializer.data['language_name']}",
                 f"Check in time - {day_in + ' ' + time_in}",
                 f"Check out time - {day_out + ' ' + time_out}",
                 f"Contact - {serializer.data['contact_link']}",

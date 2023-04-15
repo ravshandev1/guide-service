@@ -99,9 +99,13 @@ class Booking(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField(null=True)
     city = models.ForeignKey(City, models.CASCADE, related_name='booking')
+    language = models.ForeignKey(Language, models.SET_NULL, null=True, related_name='booking')
     check_in_time = models.DateTimeField()
     check_out_time = models.DateTimeField()
     contact_link = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     is_read = models.BooleanField(default=False)
     is_checked = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name
