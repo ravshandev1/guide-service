@@ -1,6 +1,7 @@
 from modeltranslation.translator import register, TranslationOptions
 from modeltranslation.admin import TranslationAdmin, TranslationTabularInline
-from .models import City, Guid
+from .models import City, Guid, Rate
+from contact.models import About
 
 
 class CustomTranslationsAdmin(TranslationAdmin):
@@ -30,6 +31,16 @@ class InlineTranslationsAdmin(TranslationTabularInline):
 @register(City)
 class CityTranslation(TranslationOptions):
     fields = ['name', 'description']
+
+
+@register(Rate)
+class CityTranslation(TranslationOptions):
+    fields = ['comment']
+
+
+@register(About)
+class CityTranslation(TranslationOptions):
+    fields = ['location', 'address']
 
 
 @register(Guid)

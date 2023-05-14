@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import City, Language, Guid, WorkOfGuid, Booking, CityImage
+from .models import City, Language, Guid, WorkOfGuid, Booking, CityImage, Rate
 from .translation import CustomTranslationsAdmin, InlineTranslationsAdmin
 
 
@@ -31,11 +31,15 @@ class WorkOfGuidInline(admin.TabularInline):
     extra = 0
 
 
+class RateInline(InlineTranslationsAdmin):
+    model = Rate
+    extra = 0
+
+
 @admin.register(Guid)
 class GuidAdmin(CustomTranslationsAdmin):
     list_display = ['id', 'name', 'rating']
     list_display_links = ('name',)
-    inlines = [WorkOfGuidInline]
+    inlines = [WorkOfGuidInline, RateInline]
     list_filter = ['language']
     filter_horizontal = ['language', 'city']
-    # exclude = ['rating']

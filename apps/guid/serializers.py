@@ -46,7 +46,7 @@ class CityDetailSerializer(serializers.ModelSerializer):
 class RateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rate
-        fields = ['rate', 'guid']
+        fields = ['rate', 'guid', 'comment']
 
 
 class WorkOfGuidSerializer(serializers.ModelSerializer):

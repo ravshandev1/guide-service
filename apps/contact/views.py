@@ -1,11 +1,21 @@
 from rest_framework import generics, response
-from .serializers import ContactSerializer
-from .models import Contact
+from .serializers import ContactSerializer, AboutSerializer, PlaceSerializer
+from .models import Contact, About, Place
 import requests
 from django.conf import settings
 
 
-class ContactAPi(generics.CreateAPIView):
+class PlacesAPI(generics.ListAPIView):
+    queryset = Place.objects.all()
+    serializer_class = PlaceSerializer
+
+
+class AboutAPI(generics.ListAPIView):
+    queryset = About.objects.all()
+    serializer_class = AboutSerializer
+
+
+class ContactAPI(generics.CreateAPIView):
     queryset = Contact.objects.all()
     serializer_class = ContactSerializer
 

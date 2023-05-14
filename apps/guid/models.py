@@ -89,6 +89,7 @@ class Rate(models.Model):
     )
     rate = models.PositiveIntegerField(choices=RATE, default=1)
     guid = models.ForeignKey(Guid, models.CASCADE, related_name='rate')
+    comment = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.guid.name

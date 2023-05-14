@@ -24,15 +24,15 @@ ENV = dotenv_values(os.path.join(BASE_DIR, '.env'))
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ENV.get('SECRET_KEY')
-BOT_TOKEN = ENV.get('BOT_TOKEN')
-ADMIN = ENV.get('ADMIN')
+SECRET_KEY='django-insecure-byfa6x#3w7inm9(^j90qrdj0#@8_lpdcbx$!_gfzj51iajengw'
+BOT_TOKEN='6258722459:AAHuYVoNIKWYoxirp3WA0-sMgmVUjUSHMOc'
+ADMIN = '1270177777'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = (ENV.get('DEBUG') == '1')
+DEBUG = True
 CORS_ALLOW_ALL_ORIGINS = True
 ALLOWED_HOSTS = ['*']
-SITE_URL = ENV.get('SITE_URL')
+SITE_URL = 'http://192.168.1.62:8000'
 
 # Application definition
 INSTALLED_APPS = [
@@ -89,38 +89,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': ENV.get('DB_NAME'),
-#         'USER': ENV.get('DB_USER'),
-#         'PASSWORD': ENV.get('DB_PASSWORD'),
-#         'HOST': '185.217.131.128',
-#         'PORT': 5432,
-#         'OPTIONS': {
-#             'client_encoding': 'utf-8',
-#         },
-#     }
-# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': ENV.get('DB_NAME'),
-#         'USER': ENV.get('DB_USER'),
-#         'PASSWORD': ENV.get('DB_PASSWORD'),
-#         'HOST': 'localhost',
-#         'PORT': 5432,
-#         'OPTIONS': {
-#             'client_encoding': 'utf-8',
-#         },
-#     }
-# }
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -165,7 +139,7 @@ LANGUAGE_CODE = 'ru'
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
 MODELTRANSLATION_LANGUAGES = ('ru', 'en', 'fr', 'ja', 'ar', 'zh-cn', 'de', 'pt', 'es', 'tr', 'it', 'hi')
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tashkent'
 
 USE_I18N = True
 

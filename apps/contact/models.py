@@ -16,3 +16,17 @@ class Contact(models.Model):
     def __str__(self):
         return self.name
 
+
+class About(models.Model):
+    location = models.CharField(max_length=250, null=True, blank=True)
+    address = models.CharField(max_length=250, null=True, blank=True)
+
+    def __str__(self):
+        return self.address
+
+
+class Place(models.Model):
+    image = models.ImageField(upload_to='interesting_places')
+
+    def __str__(self):
+        return self.image.name

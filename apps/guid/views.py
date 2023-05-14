@@ -45,12 +45,15 @@ class GuidRetrieveAPI(generics.RetrieveAPIView):
         date = datetime.now(pytz.timezone(settings.TIME_ZONE))
         bookings = Booking.objects.filter(guid=obj, check_in_time__gt=date, is_checked=True).all()
         lst = list()
-        mn_in = min([i.check_in_time for i in bookings])
-        mn_ou = max([i.check_out_time for i in bookings])
-        j = mn_in
-        while j <= mn_ou:
-            lst.append(j.__format__('%Y-%m-%d'))
-            j = j + timedelta(days=1)
+        min_month = [i.check_in_time for i in bookings]
+        max_month = [i.check_out_time for i in bookings]
+        if min_month and max_month:
+            mn_in = min(min_month)
+            mn_ou = max(max_month)
+            j = mn_in
+            while j <= mn_ou:
+                lst.append(j.__format__('%Y-%m-%d'))
+                j = j + timedelta(days=1)
         data['days'] = lst
         return response.Response(data)
 
