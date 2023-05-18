@@ -30,8 +30,11 @@ ADMIN = ENV.get('GROUP_ID')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(ENV.get('DEBUG') == '1')
-CORS_ALLOW_ALL_ORIGINS = True
-ALLOWED_HOSTS = ['*']
+# CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    "https://tourguide.travel",
+]
+ALLOWED_HOSTS = ['backend.tourguide.travel']
 SITE_URL = ENV.get('SITE_URL')
 
 # Application definition
